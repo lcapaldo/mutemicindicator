@@ -25,19 +25,19 @@ namespace MicMuteIndicator
     {
         private CoreAudioController coreAudioController;
 
-        public static readonly DependencyProperty MutedProperty = DependencyProperty.Register("Muted", typeof(bool), typeof(MainWindow));
+        public static readonly DependencyProperty MicIsLiveProperty = DependencyProperty.Register("MicIsLive", typeof(bool), typeof(MainWindow));
 
         public MainWindow()
         {
             InitializeComponent();
             coreAudioController = new CoreAudioController();
-            Muted = coreAudioController.DefaultCaptureDevice.IsMuted;
+            MicIsLive = !coreAudioController.DefaultCaptureDevice.IsMuted;
             coreAudioController.DefaultCaptureDevice.MuteChanged.Subscribe(this);
         }
-        public bool Muted
+        public bool MicIsLive
         {
-           get { return (bool)GetValue(MutedProperty); }
-           set { SetValue(MutedProperty, (object)value); }
+           get { return (bool)GetValue(MicIsLiveProperty); }
+           set { SetValue(MicIsLiveProperty, (object)value); }
         }
 
         public void OnCompleted()
@@ -52,7 +52,7 @@ namespace MicMuteIndicator
         public void OnNext(DeviceMuteChangedArgs value)
         {
             bool isMuted = value.IsMuted;
-            Dispatcher.Invoke(new Action(() => Muted = isMuted));
+            Dispatcher.Invoke(new Action(() => MicIsLive = !isMuted));
         }
     }
 
