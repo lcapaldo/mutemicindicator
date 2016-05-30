@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MicMuteIndicator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Label>Unmuted</Label>
-    </Grid>
+        Title="MainWindow" Height="350" Width="525" Name="theMainWindow">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+    <Label Visibility="{Binding Path=Muted, ElementName=theMainWindow, Converter={StaticResource BoolToVis} }">Muted</Label>
 </Window>
