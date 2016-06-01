@@ -55,6 +55,11 @@ namespace MicMuteIndicator
             bool isMuted = value.IsMuted;
             Dispatcher.Invoke(new Action(() => MicIsLive = !isMuted));
         }
+
+        private void Light_Click(object sender, RoutedEventArgs e)
+        {
+            coreAudioController.DefaultCaptureDevice.Mute(MicIsLive);
+        }
     }
 
     [ValueConversion(typeof(bool), typeof(Brush))]
