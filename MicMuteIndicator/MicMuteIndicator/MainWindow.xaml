@@ -8,14 +8,22 @@
         Title="Microphone Light" Height="350" Width="525" Name="theMainWindow">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <local:BoolToBrushConverter x:Key="LightColor" TrueValue="Red" FalseValue="DarkRed" />
+        <local:BoolToBrushConverter x:Key="LiveColor" TrueValue="White" FalseValue="DarkRed" />
         <Style x:Key="LiveMicLabelStyle" TargetType="Label">
             <Setter Property="FontFamily" Value="Impact" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="Background" Value="Red" />
             <Setter Property="FontSize" Value="48" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
         </Style>
     </Window.Resources>
-    <Label Style="{StaticResource LiveMicLabelStyle}" Visibility="{Binding Path=MicIsLive, ElementName=theMainWindow, Converter={StaticResource BoolToVis}}">LIVE MIC</Label>
+    <Label Style="{StaticResource LiveMicLabelStyle}" Background="{Binding ElementName=theMainWindow, Path=MicIsLive, Converter={StaticResource LightColor}}">
+        <TextBlock>
+            LIVE MIC
+            <TextBlock.TextEffects>
+                <TextEffect PositionStart="0" PositionCount="4" Foreground="{Binding ElementName=theMainWindow, Path=MicIsLive, Converter={StaticResource LiveColor}}"/>
+           </TextBlock.TextEffects>
+        </TextBlock>
+    </Label>
 </Window>
