@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using AudioSwitcher.AudioApi;
 using AudioSwitcher.AudioApi.CoreAudio;
 using AudioSwitcher.AudioApi.Observables;
+using System.Globalization;
 
 namespace MicMuteIndicator
 {
@@ -56,6 +57,23 @@ namespace MicMuteIndicator
         }
     }
 
-    
+    [ValueConversion(typeof(bool), typeof(Brush))]
+    public class BoolToBrushConverter : IValueConverter
+    {
+        public object TrueValue { get; set; }
+        public object FalseValue { get; set; }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return FalseValue;
+            return (bool)value ? TrueValue : FalseValue;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value != null ? value.Equals(TrueValue) : false;
+        }
+    }
 
 }
