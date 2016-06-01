@@ -18,7 +18,9 @@
             <Setter Property="HorizontalContentAlignment" Value="Center" />
         </Style>
     </Window.Resources>
-    <Label Style="{StaticResource LiveMicLabelStyle}" Background="{Binding ElementName=theMainWindow, Path=MicIsLive, Converter={StaticResource LightColor}}">
+    <Label 
+        MouseUp="Light_Click"
+        Style="{StaticResource LiveMicLabelStyle}" Background="{Binding ElementName=theMainWindow, Path=MicIsLive, Converter={StaticResource LightColor}}">
         <TextBlock>
             LIVE MIC
             <TextBlock.TextEffects>
